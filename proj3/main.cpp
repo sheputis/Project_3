@@ -1,3 +1,5 @@
+
+// Arnoldas Seputis , project 3. The different sections of code, a, b, c and d can be run independently by uncommenting them
 #include <iostream>
 #include <math.h>
 
@@ -10,31 +12,25 @@
 #include <iomanip>
 
 
-
-/*
-//for laguerre:
-#include <cmath>
-#include <fstream>
-#include <iomanip>
-#include <stdlib.h>
-#include <stdio.h>
-#define EPS 3.0e-14
-#define MAXIT 10
-
-*/
+// keeping track of time
+#include "time.h"
 
 using namespace std;
 //using namespace arma;
 
-double Legendre(int n, double x); // this is a function copied from lecture notes page 121:
 double int_function(double x1, double y1, double z1, double x2, double y2, double z2);
 double int_function_B(double phi_1, double phi_2, double th_1, double th_2, double r1, double r2);
 double int_function_D(double phi_1, double phi_2, double th_1, double th_2, double r1, double r2);
 
 int main()
 {
-    //                                           PROBLEM A: SOLVED USING LEGENDRE
 
+    //TIME:
+    clock_t start;
+    clock_t finish;
+    start = clock();
+    //                                           PROBLEM A: SOLVED USING LEGENDRE
+/*
     int N=30;
 
     double a=-2.5;double b=2.5;
@@ -67,10 +63,11 @@ int main()
     cout <<" Number of points per dimension : " << N<<endl;
     cout<< " Exact = " << exact <<endl;
     cout<< " Relative error = " <<(int_gauss-exact)/exact;
+    */
 
     /*                                       PROBLEM B !!!!!!! Laguerre !!!!!!!!!!!!!!                   */
-    /*
-    int N= 5;
+/*
+    int N= 30;
     double *xgl = new double [N+1];
     double *wgl = new double [N+1];
 
@@ -113,15 +110,22 @@ int main()
         }
     }
 }
-    cout << int_gauss/(pow(4.,5))<<endl;//(pow(2.,6))<<
-    */
+    int_gauss=int_gauss/(pow(4.,5));
+   // cout << int_gauss/(pow(4.,5))<<endl;//(pow(2.,6))<<
+    //final output:
+    double exact= (5./(16.*16.))*M_PI*M_PI;
+    cout <<"Problem B, the integral using Legendre and Laguerre : "<< int_gauss<<endl;
+    cout <<" Number of points per dimension : " << N <<endl;
+    cout<< " Exact = " << exact <<endl;
+    cout<< " Relative error = " <<(int_gauss-exact)/exact;
+*/
 
     //                                           PROBLEM C
- /*
-    int n= 100000;
+/*
+    int n= 7.3*pow(10.,3);
     long idum = -1;
     double int_mc=0; double x[6]; double sum_sigma=0;double fx; double variance=0.;
-    double length=3.;double jacobidet=pow((2*length),6);
+    double length=2.5;double jacobidet=pow((2*length),6);
     //evaluating integral with the crude Montecarlo method:
     for (int i= 1;i<=n;i++){
         for(int j=0;j<6;j++){
@@ -136,16 +140,19 @@ int main()
     }
     int_mc = int_mc/((double) n);
     sum_sigma = sum_sigma/((double) n);
-    variance=sum_sigma-int_mc*int_mc;
-
+    variance=abs(sum_sigma-int_mc*int_mc);
+    int_mc=jacobidet*int_mc;
     //final output:
+    double exact=(5./(16.*16.))*M_PI*M_PI;
+    cout<< " n :" << n <<endl;
     cout<< setiosflags(ios::showpoint | ios::uppercase);
-    cout<< " Monte carlo result " << setw(10) << setprecision(8)<< jacobidet*int_mc <<endl;
-    cout<< " Exact = " << (5./(16.*16.))*M_PI*M_PI<<endl;
+    cout<< " Monte carlo result " << setw(10) << setprecision(8)<< int_mc <<endl;
+    cout<< " Exact = " << exact <<endl;
     cout<< " Sigma = " << setw(10)<< setprecision(8)<< jacobidet*sqrt(variance/((double) n))<<endl;
+    cout<< " Relative error =" << (int_mc-exact)/exact<<endl;
 
- */
 
+*/
 
 
 
@@ -154,7 +161,7 @@ int main()
 
     //                                           PROBLEM D
 /*
-    int n= 1000000;
+    int n= 7.3*pow(10.,8);
     long idum = -1;
     double int_mc=0; double x[6]; double sum_sigma=0;double fx; double variance=0.;
     double jacobidet=(M_PI*M_PI)/(pow(4.,3));
@@ -185,13 +192,22 @@ int main()
     sum_sigma = sum_sigma/((double) n);
     variance=sum_sigma-int_mc*int_mc;
 
+    double exact=(5./(16.*16.))*M_PI*M_PI;
     //final output:
+    cout<< " n :" << n<< endl;
     cout<< setiosflags(ios::showpoint | ios::uppercase);
     cout<< " Monte carlo result " << setw(10) << setprecision(8)<< jacobidet*int_mc <<endl;
-    cout<< " Exact = " << (5./(16.*16.))*M_PI*M_PI<<endl;
+    cout<< " Exact = " << exact <<endl;
     cout<< " Sigma = " << setw(10)<< setprecision(8)<< jacobidet*sqrt(variance/((double) n))<<endl;
- */
+    cout<< " Relative error =" << (jacobidet*int_mc-exact)/exact<<endl;
 
+
+ */
+    //.................... end of problem 4
+
+    finish = clock();
+    double time = ((finish-start)/CLOCKS_PER_SEC);
+    cout<< "Time used: " << time << endl;
     return 0;
 }
 
